@@ -6,7 +6,7 @@
  */
 (function (global) {
 
-	var ColorFactory,
+	var ColorHelper, ColorFactory,
 		sixHexDigits = 0xffffff;
 
 	ColorFactory = {
@@ -141,8 +141,10 @@
 
 	// Expose: NodeJS or Browser
 	if (typeof module !== 'undefined' && module.exports) {
+		ColorHelper = require('./ColorHelper');
 		module.exports = ColorFactory;
 	} else {
+		ColorHelper = global.ColorHelper;
 		global.ColorFactory = ColorFactory;
 	}
 }(this));
