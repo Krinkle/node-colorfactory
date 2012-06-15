@@ -1,0 +1,50 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: sans-serif;
+	line-height: 1.6;
+}
+
+#qunit-tests li {
+	overflow: hidden;
+}
+
+.test-colorFactor-holder {
+	clear: right;
+	float: right;
+	padding: 0.3em;
+}
+
+.fail .test-colorFactor-holder {
+	margin-right: 0.5em;
+}
+
+.fail .test-colorFactor-holder:first-child {
+	margin-top: 3em;
+}
+
+.test-colorFactory-label {
+	color: #555;
+	float: right;
+	line-height: 30px;
+	margin-right: 0.3em;
+}
+
+.test-colorFactory-swatches {
+	clear: both;
+	float: right;
+	overflow: hidden;
+	margin-left: 0.3em;
+}
+
+.test-colorFactory-swatch {
+	width: 30px;
+	height: 30px;
+	float: right;
+	margin: 0 0.3em;
+	border: 1px solid #555;
+	border-radius: 5px;
+}

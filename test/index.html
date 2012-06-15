@@ -1,31 +1,42 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <title>ColorFactory Test Runner</title>
+	<meta charset="UTF-8">
+	<title>ColorFactory Test Suite</title>
+	<script>
+		// Timestamp query serves as immediate cache buster to
+		// avoid errors during development.
+		var i, len, scripts,
+			cacheBust = '?' + (+new Date());
 
-    <!-- source files -->
-    <script src="../src/ColorHelper.js"></script>
-    <script src="../src/ColorFactory.js"></script>
+		scripts = [
+			// Source
+			'../src/ColorHelper.js',
+			'../src/ColorFactory.js',
 
-    <!-- libs -->
-    <link rel="stylesheet" href="../libs/jasmine-1.0.0.rc1/jasmine.css">
-    <script src="../libs/jasmine-1.0.0.rc1/jasmine.js"></script>
-    <script src="../libs/jasmine-1.0.0.rc1/jasmine-html.js"></script>
-    <script src="../libs/jquery-1.7.1.js"></script>
+			// Libs
+			'../libs/jquery.js',
 
-    <!-- test init -->
-    <script src="testinit.js"></script>
+			// Test Framework
+			'../libs/qunit/qunit/qunit.js',
 
-    <!-- test suite -->
-    <script src="ColorHelper.test.js"></script>
-    <script src="ColorFactory.test.js"></script>
+			// Test Init
+			'testinit.js',
+
+			// Test Suites
+			'ColorHelper.test.js',
+			'ColorFactory.test.js'
+		];
+		for (i = 0, len = scripts.length; i < len; i += 1) {
+			document.write(
+				'<script src="' + scripts[i] + cacheBust + '"><\/script>'
+			);
+		}
+	</script>
+	<link rel="stylesheet" href="../libs/qunit/qunit/qunit.css">
+	<link rel="stylesheet" href="testinit.css">
 </head>
 <body>
-    <script>
-        jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
-        //  jasmine.getEnv().addReporter(new DocReporter());
-        jasmine.getEnv().execute();
-    </script>
+	<div id="qunit"></div>
 </body>
 </html>

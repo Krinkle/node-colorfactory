@@ -1,58 +1,145 @@
-// two colors are distinguishable
-jasmine.Matchers.prototype.toBeDistinguishable = function () {
-  var i, c0, c1, hsl0, hsl1, diff, colors = this.actual;
+/* Utilities */
 
-  if (colors.length < 2) {
-    this.message = function () {
-      return [
-        "Expected two or more colors."
-      ];
-    };
-    return false;
-  }
+var renderId = 0;
+function renderColors(colors, target, label) {
+	target = target || 'body';
+	$(document).ready(function () {
+		var i,
+			$swatches = $('<div>', {
+				'class': 'test-colorFactory-swatches',
+				'id': 'test-colorFactory-swatches-' + (++renderId)
+			});
 
-  for (i = 0; i < (colors.length - 1); i++) {
-    c0 = colors[i];
-    c1 = colors[i + 1];
-    hsl0 = c0.toHSL();
-    hsl1 = c1.toHSL();
-//        console.log('%o', hsl);
+		for (i = 0; i < colors.length; i += 1) {
+			$('<div class="test-colorFactory-swatch"></div>')
+				.css('backgroundColor', colors[colors.length - i - 1])
+				.appendTo($swatches);
+		}
 
-    diff = Math.abs(hsl0[0] - hsl1[0]) + Math.abs(hsl0[1] - hsl1[1]) + Math.abs(hsl0[2] - hsl1[2]);
-    if (diff < 30) {
-      this.message = function () {
-        return [
-          "Expected color #" + i + " " + c0 + " (" + hsl0[0] + "," + hsl0[1] + "," + hsl0[2] + ") to be distinguishable from " +
-              "color #" + (i + 1) + " " + c1 + " (" + hsl1[0] + "," + hsl1[1] + "," + hsl1[2] + ") " +
-              "have distinguishable saturation and lightness."
-        ];
-      };
-      return false;
-    }
-  }
-  return true;
+		$('<div class="test-colorFactor-holder"></div>').append(
+			$swatches,
+			$('<div>', {
+				'class': 'test-colorFactory-label',
+				'for': 'test-colorFactory-swatches-' + renderId,
+				'text': label || ''
+			})
+		).appendTo(target);
+	});
+}
+
+/* Custom tests */
+
+QUnit.colorTest = function (title, actualColors, callback) {
+	QUnit.test(title, function () {
+		this.renderColors = function (colors, label) {
+			renderColors(colors, '#' + QUnit.config.current.id, label);
+		};
+		this.renderColors(actualColors, 'actual');
+
+		this.colors = actualColors;
+
+		callback.apply(this, arguments);
+	});
 };
 
-jasmine.Matchers.prototype.toBeVisuallyClose = function (expected, threshold) {
-  if (typeof threshold == 'undefined') threshold = 8;
-  var expectedHsl = expected.toHSL();
-  var actualHsl = this.actual.toHSL();
-  var diff = [];
-  for (var d in actualHsl) diff.push(Math.abs(expectedHsl[d] - actualHsl[d]));
+QUnit.colorTest.closeMatch = function (title, actualColors, expectedColors, threshold) {
+	QUnit.colorTest(title, actualColors, function (assert) {
+		this.renderColors(expectedColors, 'match');
 
-  var diffTotal = 0;
-  for (d in diff) {
-    diffTotal += diff[d];
-    if (d == 0) diffTotal /= 3.6;
-  }
+		assert.strictEqual(actualColors.length, expectedColors.length, 'validate array size');
+		for (var i = 0, len = expectedColors.length; i < len; i += 1) {
+			assert.colorIsVisuallyClose(actualColors[i], expectedColors[i], threshold);
+		}
+	});
+};
 
-  if (diffTotal > threshold * 3) {
-    this.message = function () {
-      return [
-        "Color " + this.actual + " expected to be visually close to " + expected + ", but differed by HSV [" + diff[0] + "," + diff[1] + "," + diff[2] + "]."
-      ];
-    };
-    return false;
-  }
-  return true;
-}
+QUnit.colorTest.complementary = function (input, expected) {
+	QUnit.colorTest.closeMatch('complementaryColors() for ' + input,
+		ColorFactory.complementary(input),
+		[expected, input]
+	);
+};
+
+// The test for binary() is basically the same as for complementary(),
+// both take one value and add one to it. Except that
+// complementary() sets the input last, and binary() sets it first.
+QUnit.colorTest.binary = function (message, input, expected, threshold) {
+	QUnit.colorTest.closeMatch(message,
+		ColorFactory.binary(input),
+		[input, expected],
+		threshold
+	);
+};
+
+QUnit.colorTest.distinguishable = function (title, colors, callback) {
+	QUnit.colorTest(title, colors, function (assert) {
+		assert.colorIsDistinguishable(colors);
+		if (callback) {
+			callback.apply(this, arguments);
+		}
+	});
+};
+
+/* Custom assertions */
+
+QUnit.assert.match = function (actual, regex, message) {
+	QUnit.push(
+		regex.test(actual),
+		actual,
+		regex,
+		message
+	);
+};
+
+QUnit.assert.colorIsDistinguishable = function (colors) {
+	var i, c0, c1, hsl0, hsl1, diff;
+
+	if (colors.length < 2) {
+		QUnit.pushFailure('assert.beDistinguishable expects two or more colors.', sourceFromStacktrace());
+		return;
+	}
+
+	for (i = 0; i < (colors.length - 1); i++) {
+		c0 = colors[i];
+		c1 = colors[i + 1];
+		hsl0 = ColorHelper.rgbToHSL(c0);
+		hsl1 = ColorHelper.rgbToHSL(c1);
+
+		diff = Math.abs(hsl0[0] - hsl1[0]) + Math.abs(hsl0[1] - hsl1[1]) + Math.abs(hsl0[2] - hsl1[2]);
+		QUnit.push(
+			diff > 30,
+			diff,
+			'> 30',
+			'color #' + i + ' ' + c0 +
+				' (' + hsl0.join(',') + ') is distinguishable from ' +
+				'color #' + (i + 1) + ' ' + c1 + ' (' + hsl1.join(',') + ') ' +
+				'in saturation and lightness'
+		);
+	}
+};
+
+QUnit.assert.colorIsVisuallyClose = function (actual, expected, threshold) {
+	threshold = threshold || 8;
+
+	var expectedHsl = ColorHelper.rgbToHSL(expected);
+	var actualHsl = ColorHelper.rgbToHSL(actual);
+	var diff = [];
+	for (var d in actualHsl) {
+		diff.push(Math.abs(expectedHsl[d] - actualHsl[d]));
+	}
+
+	var diffTotal = 0;
+	for (d in diff) {
+		diffTotal += diff[d];
+		if (d === 0) {
+			diffTotal /= 3.6;
+		}
+	}
+
+	QUnit.push(
+		diffTotal < (threshold * 3),
+		diffTotal + ' (differed HSV: [' + diff.join(',') + '])',
+		diffTotal + ' < (threshold * 3)',
+		'color ' + actual + ' is visually close to ' + expected + ' (within a threshold of: ' + threshold + ')'
+	);
+};
