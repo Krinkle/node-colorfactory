@@ -1,4 +1,12 @@
-QUnit.module('ColorHelper');
+QUnit.module('ColorHelper', {
+	setup: function () {
+		// Off by default, used in the test suite for convinience
+		ColorHelper.clobberPrototype();
+	},
+	teardown: function () {
+		ColorHelper.restorePrototype();
+	}
+});
 
 QUnit.test('strToHexColor()', function (assert) {
 	assert.equal(
