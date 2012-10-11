@@ -4,7 +4,7 @@
  * Copyright (c) 2010-2012 Andrew J. Peterson / NDP Software.
  * All Rights Reserved.
  */
-(function (global) {
+(function () {
 
 	var ColorHelper, ColorFactory,
 		sixHexDigits = 0xffffff;
@@ -134,17 +134,17 @@
 		 * @param startColor
 		 * @param count
 		 */
-		diverging: function (startColor, count) {
+		diverging: function () {
 			/* @todo */
 		}
 	};
 
-	// Expose: NodeJS or Browser
+	// Expose: Server or browser
 	if (typeof module !== 'undefined' && module.exports) {
 		ColorHelper = require('./ColorHelper');
 		module.exports = ColorFactory;
 	} else {
-		ColorHelper = global.ColorHelper;
-		global.ColorFactory = ColorFactory;
+		ColorHelper = this.ColorHelper;
+		this.ColorFactory = ColorFactory;
 	}
-}(this));
+}());

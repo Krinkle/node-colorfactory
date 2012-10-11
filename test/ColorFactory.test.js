@@ -18,13 +18,13 @@ QUnit.colorTest.complementary('#0338ff', '#ff9d04');
 QUnit.colorTest.complementary('#9e01d6', '#3ad501');
 
 $.each([
-	['#6d00ff','#0000ff','#0090ff'],
-	['#ff7400','#ff0000','#cd0074'],
-	['#9fee00','#ffff00','#ffd300'],
-	['#19d408','#96fe04','#EAFF04'],
-	['#FE0435','#FC04C5','#8B16FB'],
-	['#FF7590','#FD74DF','#BF7EFD'],
-	['#0a8ccd','#04FBD1','#04fb56']
+	['#6d00ff', '#0000ff', '#0090ff'],
+	['#ff7400', '#ff0000', '#cd0074'],
+	['#9fee00', '#ffff00', '#ffd300'],
+	['#19d408', '#96fe04', '#EAFF04'],
+	['#FE0435', '#FC04C5', '#8B16FB'],
+	['#FF7590', '#FD74DF', '#BF7EFD'],
+	['#0a8ccd', '#04FBD1', '#04fb56']
 ], function (index, item) {
 	QUnit.colorTest.closeMatch('analogous (from: ' + item[1] + ')',
 		ColorFactory.analogous(item[1]),

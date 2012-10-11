@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/Krinkle/node-colorfactory.png)](http://travis-ci.org/Krinkle/node-colorfactory)
+
 ColorFactory
 =================
 

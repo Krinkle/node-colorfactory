@@ -95,7 +95,7 @@ QUnit.assert.colorIsDistinguishable = function (colors) {
 	var i, c0, c1, hsl0, hsl1, diff;
 
 	if (colors.length < 2) {
-		QUnit.pushFailure('assert.beDistinguishable expects two or more colors.', sourceFromStacktrace());
+		QUnit.pushFailure('assert.beDistinguishable expects two or more colors.');
 		return;
 	}
 

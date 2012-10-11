@@ -1,7 +1,7 @@
 /*!
  * ColorHelper
  */
-(function (global) {
+(function () {
 
 	/* Local variables */
 
@@ -237,12 +237,12 @@
 			g = l * 255;
 			b = l * 255;
 		} else {
-			var_2 = (l < 0.5) ? l * ( 1 + s ) : (( l + s ) - ( s * l ));
+			var_2 = (l < 0.5) ? l * (1 + s) : ((l + s) - (s * l));
 			var_1 = 2 * l - var_2;
 
-			r = 255 * h2rgb(var_1, var_2, h + ( 1 / 3 ));
+			r = 255 * h2rgb(var_1, var_2, h + (1 / 3));
 			g = 255 * h2rgb(var_1, var_2, h);
-			b = 255 * h2rgb(var_1, var_2, h - ( 1 / 3 ));
+			b = 255 * h2rgb(var_1, var_2, h - (1 / 3));
 		}
 
 		return [r, g, b];
@@ -257,16 +257,16 @@
 			vH -= 1;
 		}
 
-		if (( 6 * vH ) < 1) {
-			return ( v1 + ( v2 - v1 ) * 6 * vH );
+		if ((6 * vH) < 1) {
+			return (v1 + (v2 - v1) * 6 * vH);
 		}
 
-		if (( 2 * vH ) < 1) {
-			return ( v2 );
+		if ((2 * vH) < 1) {
+			return v2;
 		}
 
-		if (( 3 * vH ) < 2) {
-			return ( v1 + ( v2 - v1 ) * ( ( 2 / 3 ) - vH ) * 6 );
+		if ((3 * vH) < 2) {
+			return (v1 + (v2 - v1) * ((2 / 3) - vH) * 6);
 		}
 
 		return v1;
@@ -274,7 +274,7 @@
 
 	function hex2(n) {
 		var h = Math.round(n).toString(16);
-		if (h.length == 1) {
+		if (h.length === 1) {
 			h = '0' + h;
 		}
 		return h.substr(0, 1) + h.substr(1, 1);
@@ -312,7 +312,7 @@
 	 * [0..360, 0..100, 0.100]
 	 * http://www.easyrgb.com/index.php?X=MATH&H=18#text18
 	 */
-	function RGBtoHSL(rgb) {
+	function rgbToHsl(rgb) {
 		var r, g, b, max, min, d, h, s, l,
 			cache;
 
@@ -334,18 +334,18 @@
 			s = 0;
 		} else {
 			// Chromatic data...
-			s = d / ( l < 0.5 ? ( max + min ) : ( 2 - max - min ));
+			s = d / (l < 0.5 ? (max + min) : (2 - max - min));
 
-			var del_R = ( ( ( max - r ) / 6 ) + ( d / 2 ) ) / d,
-				del_G = ( ( ( max - g ) / 6 ) + ( d / 2 ) ) / d,
-				del_B = ( ( ( max - b ) / 6 ) + ( d / 2 ) ) / d;
+			var del_R = (((max - r) / 6) + (d / 2)) / d,
+				del_G = (((max - g) / 6) + (d / 2)) / d,
+				del_B = (((max - b) / 6) + (d / 2)) / d;
 
-			if (r == max) {
+			if (r === max) {
 				h = del_B - del_G;
-			} else if (g == max) {
-				h = ( 1 / 3 ) + del_R - del_B;
-			} else if (b == max) {
-				h = ( 2 / 3 ) + del_G - del_R;
+			} else if (g === max) {
+				h = (1 / 3) + del_R - del_B;
+			} else if (b === max) {
+				h = (2 / 3) + del_G - del_R;
 			}
 
 			if (h < 0) {
@@ -373,13 +373,13 @@
 
 		rgbToHSL: function (s) {
 			var rgb = ColorHelper.strToHexColor(s);
-			return RGBtoHSL(rgb);
+			return rgbToHsl(rgb);
 		},
 
 		strToHexColor: function (str) {
-			if (str.substr(0, 1) == '#' && str.length == 7) {
+			if (str.substr(0, 1) === '#' && str.length === 7) {
 				colorCache(str).hex = '' + str;
-			} else if (str.substr(0, 1) == '#' && str.length == 4) {
+			} else if (str.substr(0, 1) === '#' && str.length === 4) {
 				colorCache(str).hex = '#' + str.substr(1, 1) + str.substr(1, 1) +
 						str.substr(2, 1) + str.substr(2, 1) +
 						str.substr(3, 1) + str.substr(3, 1);
@@ -439,10 +439,10 @@
 		}
 	};
 
-	// Expose: NodeJS or Browser
+	// Expose: Server or browser
 	if (typeof module !== 'undefined' && module.exports) {
 		module.exports = ColorHelper;
 	} else {
-		global.ColorHelper = ColorHelper;
+		this.ColorHelper = ColorHelper;
 	}
-}(this));
+}());

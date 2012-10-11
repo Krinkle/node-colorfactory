@@ -1,40 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html>
 <head>
 	<meta charset="UTF-8">
 	<title>ColorFactory Test Suite</title>
-	<script>
-		// Timestamp query serves as immediate cache buster to
-		// avoid errors during development.
-		var i, len, scripts,
-			cacheBust = '?' + (+new Date());
-
-		scripts = [
-			// Source
-			'../src/ColorHelper.js',
-			'../src/ColorFactory.js',
-
-			// Libs
-			'../libs/jquery.js',
-
-			// Test Framework
-			'../libs/qunit/qunit/qunit.js',
-
-			// Test Init
-			'testinit.js',
-
-			// Test Suites
-			'ColorHelper.test.js',
-			'ColorFactory.test.js'
-		];
-		for (i = 0, len = scripts.length; i < len; i += 1) {
-			document.write(
-				'<script src="' + scripts[i] + cacheBust + '"><\/script>'
-			);
-		}
-	</script>
 	<link rel="stylesheet" href="../libs/qunit/qunit/qunit.css">
 	<link rel="stylesheet" href="testinit.css">
+
+	<script src="../src/ColorHelper.js"></script>
+	<script src="../src/ColorFactory.js"></script>
+
+	<script src="../libs/jquery.js"></script>
+	<script src="../libs/qunit/qunit/qunit.js"></script>
+	<script src="../libs/qunit-logging/qunit-logging.js"></script>
+
+	<script src="testinit.js"></script>
+	<script>
+		QUnit.config.reorder = false;
+	</script>
+
+	<script src="ColorHelper.test.js"></script>
+	<script src="ColorFactory.test.js"></script>
 </head>
 <body>
 	<div id="qunit"></div>

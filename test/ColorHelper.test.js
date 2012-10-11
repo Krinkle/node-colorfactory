@@ -41,19 +41,19 @@ QUnit.test('hexToRGB()', function (assert) {
 });
 
 QUnit.test('rgbToHSL()', function (assert) {
-	assert.deepEqual('#ffffff'.toHSL(), [0,0,100], 'convert white to hsl');
+	assert.deepEqual('#ffffff'.toHSL(), [0, 0, 100], 'convert white to hsl');
 
-	assert.deepEqual('#000000'.toHSL(), [0,0,0], 'convert black to hsl');
+	assert.deepEqual('#000000'.toHSL(), [0, 0, 0], 'convert black to hsl');
 
-	assert.deepEqual('#ff0000'.toHSL(), [0,100,50], 'convert red to hsl');
+	assert.deepEqual('#ff0000'.toHSL(), [0, 100, 50], 'convert red to hsl');
 
-	assert.deepEqual('#00ff00'.toHSL(), [120,100,50], 'convert green to hsl');
+	assert.deepEqual('#00ff00'.toHSL(), [120, 100, 50], 'convert green to hsl');
 
-	assert.deepEqual('#0000ff'.toHSL(), [240,100,50], 'convert blue to hsl');
+	assert.deepEqual('#0000ff'.toHSL(), [240, 100, 50], 'convert blue to hsl');
 
 	assert.deepEqual('#800'.toHSL(), [0, 100, 27], 'convert #800 to hsl');
 
-	assert.deepEqual('#336699'.toHSL(), [210,50,40], 'convert #336699 to hsl');
+	assert.deepEqual('#336699'.toHSL(), [210, 50, 40], 'convert #336699 to hsl');
 });
 
 QUnit.test('hslToHexColor()', function (assert) {
@@ -97,29 +97,33 @@ QUnit.test('darken()', function (assert) {
 });
 
 QUnit.test('saturate()', function (assert) {
-		assert.match('#800'.saturate(0), /#8[789a]0000/, 'do nothing with zero');
+	assert.match('#800'.saturate(0), /#8[789a]0000/, 'do nothing with zero');
 
-		assert.equal(ColorHelper.hslToHexColor(120, 30, 90).saturate(20), '#d9f2d9',
-			'saturate(hsl(120, 30%, 90%), 20%)'
-		);
+	assert.equal(
+		ColorHelper.hslToHexColor(120, 30, 90).saturate(20),
+		'#d9f2d9',
+		'saturate(hsl(120, 30%, 90%), 20%)'
+	);
 
-		assert.match('#855'.saturate(20), /#9[de]3f3f/, 'saturate(#855, 20%) => #9e3f3f');
+	assert.match('#855'.saturate(20), /#9[de]3f3f/, 'saturate(#855, 20%) => #9e3f3f');
 
-		assert.match('#000'.saturate(20), /#000000/, 'saturate(#000, 20%) => #000');
+	assert.match('#000'.saturate(20), /#000000/, 'saturate(#000, 20%) => #000');
 
-		assert.match('#fff'.saturate(20), /#ffffff/, 'saturate(#fff, 20%) => #ffffff');
+	assert.match('#fff'.saturate(20), /#ffffff/, 'saturate(#fff, 20%) => #ffffff');
 
-		assert.match('#8a8'.saturate(100), /#33ff33/, 'saturate(#8a8,100%) => #33ff33');
+	assert.match('#8a8'.saturate(100), /#33ff33/, 'saturate(#8a8,100%) => #33ff33');
 
-		assert.match('#8a8'.saturate(0), /#88aa88/, 'saturate(#8a8, 0%) => #88aa88');
+	assert.match('#8a8'.saturate(0), /#88aa88/, 'saturate(#8a8, 0%) => #88aa88');
 
-		assert.equal(ColorHelper.hslToHexColor(120, 30, 90).saturate(-20), '#e3e8e3',
-			'desaturate(hsl(120, 30%, 90%), 20%) => hsl(120, 10%, 90%)'
-		);
+	assert.equal(
+		ColorHelper.hslToHexColor(120, 30, 90).saturate(-20),
+		'#e3e8e3',
+		'desaturate(hsl(120, 30%, 90%), 20%) => hsl(120, 10%, 90%)'
+	);
 
-		assert.match('#855'.saturate(-20), /#716a6a/, 'desaturate 855 to #726b6b');
-		assert.match('#000'.saturate(-20), /#000000/, 'desaturate 000 to black');
-		assert.match('#fff'.saturate(-20), /#ffffff/, 'desaturate 000 to white');
-		assert.match('#8a8'.saturate(-100), /#999999/, 'desaturate 000 to white');
-		assert.match('#855'.saturate(-20), /#716a6a/, 'desaturate(#855, 20%) => #726b6b');
+	assert.match('#855'.saturate(-20), /#716a6a/, 'desaturate 855 to #726b6b');
+	assert.match('#000'.saturate(-20), /#000000/, 'desaturate 000 to black');
+	assert.match('#fff'.saturate(-20), /#ffffff/, 'desaturate 000 to white');
+	assert.match('#8a8'.saturate(-100), /#999999/, 'desaturate 000 to white');
+	assert.match('#855'.saturate(-20), /#716a6a/, 'desaturate(#855, 20%) => #726b6b');
 });

@@ -1,0 +1,23 @@
+{
+	"predef": [
+		"ColorFactory",
+		"ColorHelper",
+		"QUnit"
+	],
+
+	"eqeqeq": true,
+	"immed": true,
+	"latedef": true,
+	"newcap": true,
+	"nonew": true,
+	"undef": true,
+	"unused": true,
+	"strict": false,
+	"trailing": true,
+
+	"browser": true,
+	"jquery": true,
+	"node": true,
+
+	"white": true
+}
