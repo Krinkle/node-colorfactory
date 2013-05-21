@@ -1,6 +1,6 @@
 {
   "name": "node-colorfactory",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Awesome methods for working with colors in javascript.",
   "keywords": [
     "colors",
@@ -15,10 +15,12 @@
   "author": {
     "name": "Andrew Peterson"
   },
-  "contributors": [{
-    "name": "Timo Tijhof",
-    "web": "https://github.com/Krinkle"
-  }],
+  "contributors": [
+    {
+      "name": "Timo Tijhof",
+      "web": "https://github.com/Krinkle"
+    }
+  ],
   "main": "./node-colorfactory.js",
   "repository": {
     "type": "git",
