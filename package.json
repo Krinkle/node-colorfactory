@@ -1,28 +1,31 @@
 {
-	"name": "node-colorfactory",
-	"version": "0.1.2",
-	"description": "Awesome methods for working with colors in javascript.",
-	"keywords": [
-		"colors",
-		"rgb",
-		"hsl",
-		"hex",
-		"util",
-		"utilities"
-	],
-	"homepage": "https://github.com/Krinkle/node-colorfactory",
-	"bugs": "https://github.com/Krinkle/node-colorfactory/issues",
-	"author": {
-		"name": "Andrew Peterson"
-	},
-	"contributors": [{
-		"name": "Timo Tijhof",
-		"web": "https://github.com/Krinkle"
-	}],
-	"main": "./node-colorfactory.js",
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/Krinkle/node-colorfactory.git"
-	},
-	"dependencies": {}
+  "name": "node-colorfactory",
+  "version": "0.1.2",
+  "description": "Awesome methods for working with colors in javascript.",
+  "keywords": [
+    "colors",
+    "rgb",
+    "hsl",
+    "hex",
+    "util",
+    "utilities"
+  ],
+  "homepage": "https://github.com/Krinkle/node-colorfactory",
+  "bugs": "https://github.com/Krinkle/node-colorfactory/issues",
+  "author": {
+    "name": "Andrew Peterson"
+  },
+  "contributors": [{
+    "name": "Timo Tijhof",
+    "web": "https://github.com/Krinkle"
+  }],
+  "main": "./node-colorfactory.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Krinkle/node-colorfactory.git"
+  },
+  "scripts": {
+    "test": "phantomjs test/phantomjs-index.js"
+  },
+  "dependencies": {}
 }
