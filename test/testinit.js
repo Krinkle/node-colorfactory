@@ -1,14 +1,10 @@
 /* Utilities */
 
-var renderId = 0;
 function renderColors(colors, target, label) {
 	target = target || 'body';
 	$(document).ready(function () {
 		var i,
-			$swatches = $('<div>', {
-				'class': 'test-colorFactory-swatches',
-				'id': 'test-colorFactory-swatches-' + (++renderId)
-			});
+			$swatches = $('<div>').addClass('test-colorFactory-swatches');
 
 		for (i = 0; i < colors.length; i += 1) {
 			$('<div class="test-colorFactory-swatch"></div>')
@@ -18,11 +14,7 @@ function renderColors(colors, target, label) {
 
 		$('<div class="test-colorFactor-holder"></div>').append(
 			$swatches,
-			$('<div>', {
-				'class': 'test-colorFactory-label',
-				'for': 'test-colorFactory-swatches-' + renderId,
-				'text': label || ''
-			})
+			$('<div>').text(label).addClass('test-colorFactory-label')
 		).appendTo(target);
 	});
 }
@@ -32,7 +24,7 @@ function renderColors(colors, target, label) {
 QUnit.colorTest = function (title, actualColors, callback) {
 	QUnit.test(title, function () {
 		this.renderColors = function (colors, label) {
-			renderColors(colors, '#' + QUnit.config.current.id, label);
+			renderColors(colors, '#qunit-test-output-' + QUnit.config.current.testId, label);
 		};
 		this.renderColors(actualColors, 'actual');
 
@@ -121,14 +113,15 @@ QUnit.assert.colorIsDistinguishable = function (colors) {
 QUnit.assert.colorIsVisuallyClose = function (actual, expected, threshold) {
 	threshold = threshold || 8;
 
-	var expectedHsl = ColorHelper.rgbToHSL(expected);
-	var actualHsl = ColorHelper.rgbToHSL(actual);
-	var diff = [];
-	for (var d in actualHsl) {
+	var d,
+		expectedHsl = ColorHelper.rgbToHSL(expected),
+		actualHsl = ColorHelper.rgbToHSL(actual),
+		diffTotal = 0,
+		diff = [];
+	for (d in actualHsl) {
 		diff.push(Math.abs(expectedHsl[d] - actualHsl[d]));
 	}
 
-	var diffTotal = 0;
 	for (d in diff) {
 		diffTotal += diff[d];
 		if (d === 0) {

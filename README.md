@@ -1,4 +1,6 @@
-ColorFactory [![Build Status](https://secure.travis-ci.org/Krinkle/node-colorfactory.png)](http://travis-ci.org/Krinkle/node-colorfactory) [![NPM version](https://badge.fury.io/js/node-colorfactory.png)](http://badge.fury.io/js/node-colorfactory)
+[![Build Status](https://travis-ci.org/Krinkle/node-colorfactory.svg?branch=master)](https://travis-ci.org/Krinkle/node-colorfactory) [![npm](https://img.shields.io/npm/v/node-colorfactory.svg?style=flat)](https://www.npmjs.com/package/node-colorfactory)
+
+ColorFactory
 =================
 
 Quick start

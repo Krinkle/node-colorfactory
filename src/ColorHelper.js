@@ -314,7 +314,8 @@
 	 */
 	function rgbToHsl(rgb) {
 		var r, g, b, max, min, d, h, s, l,
-			cache;
+			cache,
+			del_R, del_G, del_B;
 
 		rgb = ColorHelper.hexToRGB(rgb);
 		r = rgb[0] / 255;
@@ -336,9 +337,9 @@
 			// Chromatic data...
 			s = d / (l < 0.5 ? (max + min) : (2 - max - min));
 
-			var del_R = (((max - r) / 6) + (d / 2)) / d,
-				del_G = (((max - g) / 6) + (d / 2)) / d,
-				del_B = (((max - b) / 6) + (d / 2)) / d;
+			del_R = (((max - r) / 6) + (d / 2)) / d;
+			del_G = (((max - g) / 6) + (d / 2)) / d;
+			del_B = (((max - b) / 6) + (d / 2)) / d;
 
 			if (r === max) {
 				h = del_B - del_G;
@@ -390,23 +391,28 @@
 		},
 
 		hexToRGB: function (hexStr) {
-			var cache = colorCache(hexStr);
-			if (cache.rgb) return cache.rgb;
-			var h = ColorHelper.strToHexColor(hexStr);
-			if (!h) throw 'Unknown color "' + hexStr + '"';
+			var h,
+				cache = colorCache(hexStr);
+			if (cache.rgb) {
+				return cache.rgb;
+			}
+			h = ColorHelper.strToHexColor(hexStr);
+			if (!h) {
+				throw 'Unknown color "' + hexStr + '"';
+			}
 			cache.rgb = [parseInt(h.substr(1, 2), 16), parseInt(h.substr(3, 2), 16), parseInt(h.substr(5, 2), 16)];
 			return cache.rgb;
 		},
 
 		lighten: function (color, percent) {
-			var hsl = ColorHelper.rgbToHSL(color);
-			var newHSL = [hsl[0], hsl[1], Math.min(100, hsl[2] + percent)];
+			var hsl = ColorHelper.rgbToHSL(color),
+				newHSL = [hsl[0], hsl[1], Math.min(100, hsl[2] + percent)];
 			return ColorHelper.hslToHexColor(newHSL);
 		},
 
 		darken: function (color, percent) {
-			var hsl = ColorHelper.rgbToHSL(color);
-			var newHSL = [hsl[0], hsl[1], Math.max(0, hsl[2] - percent)];
+			var hsl = ColorHelper.rgbToHSL(color),
+				newHSL = [hsl[0], hsl[1], Math.max(0, hsl[2] - percent)];
 			return ColorHelper.hslToHexColor(newHSL);
 		},
 
@@ -415,8 +421,8 @@
 		 * @param percent positive values increase saturation, negative values desaturate.
 		 */
 		saturate: function (color, percent) {
-			var hsl = ColorHelper.rgbToHSL(color);
-			var newHSL = [hsl[0], Math.min(100, Math.max(0, hsl[1] + percent)), hsl[2]];
+			var hsl = ColorHelper.rgbToHSL(color),
+				newHSL = [hsl[0], Math.min(100, Math.max(0, hsl[1] + percent)), hsl[2]];
 			return ColorHelper.hslToHexColor(newHSL);
 		},
 

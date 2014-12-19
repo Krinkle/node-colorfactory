@@ -123,7 +123,7 @@ QUnit.colorTest.closeMatch('sequential() works from dark purple lighter',
 
 QUnit.colorTest.closeMatch('sequential() works from light purple darker',
 	ColorFactory.sequential('#c4b3d8', 7),
-	["#c3b2d7", "#ac93c8", "#9475b8", "#7d57a8", "#66478a", "#50376c", "#39284d"]
+	['#c3b2d7', '#ac93c8', '#9475b8', '#7d57a8', '#66478a', '#50376c', '#39284d']
 );
 
 QUnit.colorTest.closeMatch('sequential() reproduces example orange',

@@ -28,15 +28,18 @@
 		 * Two adjacent colors on 12-part color wheel
 		 */
 		analogous: function (color, angle) {
-			if (!angle) angle = 30;
-			var hsl = ColorHelper.rgbToHSL(color);
+			var hsl, color0, color2;
+			if (!angle) {
+				angle = 30;
+			}
+			hsl = ColorHelper.rgbToHSL(color);
 			hsl[0] = (hsl[0] + angle) % 360;
-			var color0 = ColorHelper.hslToHexColor(hsl);
+			color0 = ColorHelper.hslToHexColor(hsl);
 			color0 = ColorHelper.darken(color0, 8);
 			color0 = ColorHelper.saturate(color0, -6);
 			hsl = ColorHelper.rgbToHSL(color);
 			hsl[0] = (hsl[0] - angle + 360) % 360;
-			var color2 = ColorHelper.hslToHexColor(hsl);
+			color2 = ColorHelper.hslToHexColor(hsl);
 			return [color0, color, color2];
 		},
 
@@ -57,16 +60,17 @@
 		},
 
 		interpolate: function (color1, colorN, steps) {
-			var hsl1 = ColorHelper.rgbToHSL(color1);
-			var hslN = ColorHelper.rgbToHSL(colorN);
-			var delta = [];
-			for (var d in hsl1) {
-				delta.push((hslN[d] - hsl1[d]) / (steps - 1));
+			var d, i,
+				hsl = ColorHelper.rgbToHSL(color1),
+				hslN = ColorHelper.rgbToHSL(colorN),
+				delta = [],
+				colors = [];
+
+			for (d in hsl) {
+				delta.push((hslN[d] - hsl[d]) / (steps - 1));
 			}
 
-			var hsl = hsl1;
-			var colors = [];
-			for (var i = 0; i < steps; i++) {
+			for (i = 0; i < steps; i++) {
 				colors.push(ColorHelper.hslToHexColor(hsl));
 				for (d in hsl) {
 					hsl[d] += delta[d];
@@ -88,11 +92,14 @@
 				count = refColor;
 				refColor = 'black';
 			}
-			var hsl = ColorHelper.rgbToHSL(refColor);
+			var i,
+				hsl = ColorHelper.rgbToHSL(refColor),
+				colors = [];
+
 			hsl[1] = Math.max(60, hsl[1]);
 			hsl[2] = Math.max(40, hsl[2]);
 			hsl[2] = Math.min(70, hsl[2]);
-			var i, colors = [];
+
 			for (i = 0; i < count; i++) {
 				colors.push(ColorHelper.hslToHexColor(hsl));
 				hsl[0] += (360 / count);
@@ -110,11 +117,14 @@
 		 * @param count
 		 */
 		sequential: function (startColor, endColor, count) {
-			var hsl = ColorHelper.rgbToHSL(startColor);
+			var lightness,
+				hsl = ColorHelper.rgbToHSL(startColor);
 			if (count === undefined) {
 				count = endColor;
-				var lightness = hsl[2] - 20 * count;
-				if (lightness < 0) lightness = 100 - hsl[2];
+				lightness = hsl[2] - 20 * count;
+				if (lightness < 0) {
+					lightness = 100 - hsl[2];
+				}
 				endColor = ColorHelper.hslToHexColor([hsl[0], hsl[1], lightness]);
 			}
 			return ColorFactory.interpolate(startColor, endColor, count);
