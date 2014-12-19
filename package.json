@@ -1,6 +1,6 @@
 {
-  "name": "node-colorfactory",
-  "version": "0.1.3",
+  "name": "colorfactory",
+  "version": "0.1.4",
   "description": "Awesome methods for working with colors in javascript.",
   "keywords": [
     "colors",

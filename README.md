@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Krinkle/node-colorfactory.svg?branch=master)](https://travis-ci.org/Krinkle/node-colorfactory) [![npm](https://img.shields.io/npm/v/node-colorfactory.svg?style=flat)](https://www.npmjs.com/package/node-colorfactory)
+[![Build Status](https://travis-ci.org/Krinkle/node-colorfactory.svg?branch=master)](https://travis-ci.org/Krinkle/node-colorfactory) [![npm](https://img.shields.io/npm/v/colorfactory.svg?style=flat)](https://www.npmjs.com/package/colorfactory)
 
 ColorFactory
 =================
@@ -8,7 +8,7 @@ Quick start
 
 This module is available as an [npm](http://npmjs.org/) package! Install it right away:
 ```bash
-npm install node-colorfactory
+npm install colorfactory
 ```
 
 Clone the repo, `git clone --recursive https://github.com/Krinkle/node-colorfactory.git`.
