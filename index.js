@@ -1,6 +1,4 @@
-/**
- * Wrapper for the package as a whole.
- */
+/* eslint-env node */
 
 module.exports = {
 	ColorHelper: require('./src/ColorHelper'),

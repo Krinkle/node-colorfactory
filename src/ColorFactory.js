@@ -2,7 +2,6 @@
  * ColorFactory
  *
  * Copyright (c) 2010-2012 Andrew J. Peterson / NDP Software.
- * All Rights Reserved.
  */
 (function () {
 
@@ -150,9 +149,11 @@
 	};
 
 	// Expose: Server or browser
+	/* eslint-disable no-undef */
 	if (typeof module !== 'undefined' && module.exports) {
 		ColorHelper = require('./ColorHelper');
 		module.exports = ColorFactory;
+		/* eslint-enable */
 	} else {
 		ColorHelper = this.ColorHelper;
 		this.ColorFactory = ColorFactory;

@@ -2,7 +2,7 @@
 
 function renderColors(colors, target, label) {
 	target = target || 'body';
-	$(document).ready(function () {
+	$(function () {
 		var i,
 			$swatches = $('<div>').addClass('test-colorFactory-swatches');
 
@@ -22,7 +22,7 @@ function renderColors(colors, target, label) {
 /* Custom tests */
 
 QUnit.colorTest = function (title, actualColors, callback) {
-	QUnit.test(title, function () {
+	return QUnit.test(title, function () {
 		this.renderColors = function (colors, label) {
 			renderColors(colors, '#qunit-test-output-' + QUnit.config.current.testId, label);
 		};
@@ -30,12 +30,12 @@ QUnit.colorTest = function (title, actualColors, callback) {
 
 		this.colors = actualColors;
 
-		callback.apply(this, arguments);
+		return callback.apply(this, arguments);
 	});
 };
 
 QUnit.colorTest.closeMatch = function (title, actualColors, expectedColors, threshold) {
-	QUnit.colorTest(title, actualColors, function (assert) {
+	return QUnit.colorTest(title, actualColors, function (assert) {
 		this.renderColors(expectedColors, 'match');
 
 		assert.strictEqual(actualColors.length, expectedColors.length, 'validate array size');
@@ -46,7 +46,7 @@ QUnit.colorTest.closeMatch = function (title, actualColors, expectedColors, thre
 };
 
 QUnit.colorTest.complementary = function (input, expected) {
-	QUnit.colorTest.closeMatch('complementaryColors() for ' + input,
+	return QUnit.colorTest.closeMatch('complementaryColors() for ' + input,
 		ColorFactory.complementary(input),
 		[expected, input]
 	);
@@ -56,7 +56,7 @@ QUnit.colorTest.complementary = function (input, expected) {
 // both take one value and add one to it. Except that
 // complementary() sets the input last, and binary() sets it first.
 QUnit.colorTest.binary = function (message, input, expected, threshold) {
-	QUnit.colorTest.closeMatch(message,
+	return QUnit.colorTest.closeMatch(message,
 		ColorFactory.binary(input),
 		[input, expected],
 		threshold
@@ -64,7 +64,7 @@ QUnit.colorTest.binary = function (message, input, expected, threshold) {
 };
 
 QUnit.colorTest.distinguishable = function (title, colors, callback) {
-	QUnit.colorTest(title, colors, function (assert) {
+	return QUnit.colorTest(title, colors, function (assert) {
 		assert.colorIsDistinguishable(colors);
 		if (callback) {
 			callback.apply(this, arguments);
@@ -75,19 +75,19 @@ QUnit.colorTest.distinguishable = function (title, colors, callback) {
 /* Custom assertions */
 
 QUnit.assert.match = function (actual, regex, message) {
-	QUnit.push(
-		regex.test(actual),
-		actual,
-		regex,
-		message
-	);
+	this.pushResult( {
+		result: regex.test(actual),
+		actual: actual,
+		expected: regex,
+		message: message
+	} );
 };
 
 QUnit.assert.colorIsDistinguishable = function (colors) {
 	var i, c0, c1, hsl0, hsl1, diff;
 
 	if (colors.length < 2) {
-		QUnit.pushFailure('assert.beDistinguishable expects two or more colors.');
+		this.pushFailure('assert.beDistinguishable expects two or more colors.');
 		return;
 	}
 
@@ -98,15 +98,15 @@ QUnit.assert.colorIsDistinguishable = function (colors) {
 		hsl1 = ColorHelper.rgbToHSL(c1);
 
 		diff = Math.abs(hsl0[0] - hsl1[0]) + Math.abs(hsl0[1] - hsl1[1]) + Math.abs(hsl0[2] - hsl1[2]);
-		QUnit.push(
-			diff > 30,
-			diff,
-			'> 30',
-			'color #' + i + ' ' + c0 +
+		this.pushResult( {
+			result: diff > 30,
+			actual: diff,
+			expected: '> 30',
+			message: 'color #' + i + ' ' + c0 +
 				' (' + hsl0.join(',') + ') is distinguishable from ' +
 				'color #' + (i + 1) + ' ' + c1 + ' (' + hsl1.join(',') + ') ' +
 				'in saturation and lightness'
-		);
+		} );
 	}
 };
 
@@ -129,10 +129,10 @@ QUnit.assert.colorIsVisuallyClose = function (actual, expected, threshold) {
 		}
 	}
 
-	QUnit.push(
-		diffTotal < (threshold * 3),
-		diffTotal + ' (differed HSV: [' + diff.join(',') + '])',
-		diffTotal + ' < (threshold * 3)',
-		'color ' + actual + ' is visually close to ' + expected + ' (within a threshold of: ' + threshold + ')'
-	);
+	this.pushResult( {
+		result: diffTotal < (threshold * 3),
+		actual: diffTotal + ' (differed HSV: [' + diff.join(',') + '])',
+		expected: diffTotal + ' < (threshold * 3)',
+		message: 'color ' + actual + ' is visually close to ' + expected + ' (within a threshold of: ' + threshold + ')'
+	} );
 };

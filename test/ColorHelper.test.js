@@ -1,9 +1,9 @@
 QUnit.module('ColorHelper', {
-	setup: function () {
+	beforeEach: function () {
 		// Off by default, used in the test suite for convinience
 		ColorHelper.clobberPrototype();
 	},
-	teardown: function () {
+	afterEach: function () {
 		ColorHelper.restorePrototype();
 	}
 });

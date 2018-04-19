@@ -446,8 +446,10 @@
 	};
 
 	// Expose: Server or browser
+	/* eslint-disable no-undef */
 	if (typeof module !== 'undefined' && module.exports) {
 		module.exports = ColorHelper;
+		/* eslint-enable no-undef */
 	} else {
 		this.ColorHelper = ColorHelper;
 	}
