@@ -12,6 +12,7 @@
   ],
   "homepage": "https://github.com/Krinkle/node-colorfactory",
   "bugs": "https://github.com/Krinkle/node-colorfactory/issues",
+  "license": "MIT",
   "author": {
     "name": "Andrew Peterson"
   },
