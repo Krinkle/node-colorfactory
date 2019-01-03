@@ -1,6 +1,6 @@
 {
   "name": "colorfactory",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Awesome methods for working with colors in javascript.",
   "keywords": [
     "colors",
@@ -22,7 +22,11 @@
       "web": "https://github.com/Krinkle"
     }
   ],
-  "main": "./index.js",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "src/"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/Krinkle/node-colorfactory.git"

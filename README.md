@@ -7,22 +7,19 @@ Quick start
 ----------
 
 This module is available as an [npm](http://npmjs.org/) package! Install it right away:
-```bash
-npm install colorfactory
-```
 
-Clone the repo, `git clone --recursive https://github.com/Krinkle/node-colorfactory.git`.
+<pre lang="bash">
+npm install colorfactory
+</pre>
 
 Versioning
 ----------
 
-We use the Semantic Versioning guidelines as much as possible.
-
-Releases will be numbered in the following format:
+This package follows Semantic Versioning guidelines. Releases use the following format:
 
 `<major>.<minor>.<patch>`
 
-For more information on SemVer, please visit http://semver.org/.
+For more information, please visit <https://semver.org/>.
 
 Bug tracker
 -----------
