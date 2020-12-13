@@ -57,7 +57,7 @@ QUnit.test('rgbToHSL()', function (assert) {
 });
 
 QUnit.test('hslToHexColor()', function (assert) {
-	$.each({
+	var cases = {
 		'convert blue': {
 			hsl: [240, 100, 50],
 			hex: '#0000ff'
@@ -74,12 +74,14 @@ QUnit.test('hslToHexColor()', function (assert) {
 			hsl: [0, 0, 0],
 			hex: '#000000'
 		}
-	}, function (message, pars) {
+	};
+	for (var message in cases) {
+		var pars = cases[message];
 		// hslToHexColor(hls=[0, 0, 0])
 		assert.equal(ColorHelper.hslToHexColor(pars.hsl), pars.hex, message + ' (array argument)');
 		// hslToHexColor(h=0, s=0, l=0)
 		assert.equal(ColorHelper.hslToHexColor.apply(null, pars.hsl), pars.hex, message + ' (3 arguments)');
-	});
+	}
 });
 
 QUnit.test('lighten()', function (assert) {

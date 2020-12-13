@@ -1,21 +1,36 @@
 /* Utilities */
 
-function renderColors(colors, target, label) {
-	target = target || 'body';
-	$(function () {
-		var i,
-			$swatches = $('<div>').addClass('test-colorFactory-swatches');
+var domReady = new Promise(function (resolve) {
+	if (/complete/.test(document.readyState)) resolve();
+	else document.addEventListener('readystatechange', function () {
+		if (/complete/.test(document.readyState)) resolve();
+	});
+});
 
-		for (i = 0; i < colors.length; i += 1) {
-			$('<div class="test-colorFactory-swatch"></div>')
-				.css('backgroundColor', colors[colors.length - i - 1])
-				.appendTo($swatches);
+function element(tagName, props) {
+	return Object.assign(document.createElement(tagName), props || {});
+}
+
+function renderColors(colors, target, label) {
+	domReady.then(function () {
+		var i, holder,
+			swatches = element('div', { className: 'test-colorFactory-swatches' });
+
+		for (i = 0; i < colors.length; i++) {
+			swatches.append(
+				element('div', {
+					className: 'test-colorFactory-swatch',
+					style: 'background-color:' + colors[colors.length - i - 1]
+				})
+			);
 		}
 
-		$('<div class="test-colorFactor-holder"></div>').append(
-			$swatches,
-			$('<div>').text(label).addClass('test-colorFactory-label')
-		).appendTo(target);
+		holder = element('div', { className: 'test-colorFactor-holder' });
+		holder.append(
+			swatches,
+			element('div', { textContent: label, className: 'test-colorFactory-label' })
+		);
+		document.querySelector(target).append(holder);
 	});
 }
 

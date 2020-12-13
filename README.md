@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/Krinkle/node-colorfactory.svg?branch=master)](https://travis-ci.com/Krinkle/node-colorfactory) [![npm](https://img.shields.io/npm/v/colorfactory.svg?style=flat)](https://www.npmjs.com/package/colorfactory) [![Tested with QUnit](https://img.shields.io/badge/tested_with-qunit-9c3493.svg)](https://qunitjs.com/)
+[![Build Status](https://travis-ci.com/Krinkle/node-colorfactory.svg?branch=main)](https://travis-ci.com/Krinkle/node-colorfactory) [![npm](https://img.shields.io/npm/v/colorfactory.svg?style=flat)](https://www.npmjs.com/package/colorfactory) [![Tested with QUnit](https://img.shields.io/badge/tested_with-qunit-9c3493.svg)](https://qunitjs.com/)
 
 ColorFactory
 =================

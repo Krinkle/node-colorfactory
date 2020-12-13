@@ -3,8 +3,8 @@ parserOptions:
   ecmaVersion: 5
 env:
   browser: true
+  es6: true
 globals:
-  $: false
   QUnit: false
   ColorFactory: true
   ColorHelper: true
