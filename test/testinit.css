@@ -1,14 +1,4 @@
-* {
-	margin: 0;
-	padding: 0;
-}
-
-body {
-	font-family: sans-serif;
-	line-height: 1.6;
-}
-
-#qunit-tests li {
+#qunit-tests > li {
 	overflow: hidden;
 }
 
@@ -16,14 +6,6 @@ body {
 	clear: right;
 	float: right;
 	padding: 0.3em;
-}
-
-.fail .test-colorFactor-holder {
-	margin-right: 0.5em;
-}
-
-.fail .test-colorFactor-holder:first-child {
-	margin-top: 3em;
 }
 
 .test-colorFactory-label {

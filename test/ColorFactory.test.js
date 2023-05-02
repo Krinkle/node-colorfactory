@@ -1,3 +1,4 @@
+/* eslint-env qunit */
 QUnit.module('ColorFactory');
 
 QUnit.colorTest.closeMatch(

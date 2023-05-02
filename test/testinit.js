@@ -1,4 +1,4 @@
-/* Utilities */
+/* eslint-env browser, es6, qunit */
 
 var domReady = new Promise(function (resolve) {
 	if (/complete/.test(document.readyState)) resolve();

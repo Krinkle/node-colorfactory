@@ -1,3 +1,4 @@
+/* eslint-env qunit */
 QUnit.module('ColorHelper', {
 	beforeEach: function () {
 		// Off by default, used in the test suite for convinience
