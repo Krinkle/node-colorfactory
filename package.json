@@ -32,14 +32,12 @@
     "url": "git://github.com/Krinkle/node-colorfactory.git"
   },
   "scripts": {
-    "test": "eslint . && karma start"
+    "test": "eslint . && testem -l 'Headless Firefox' ci"
   },
   "devDependencies": {
-    "eslint": "^7.12.0",
-    "karma": "^6.4.1",
-    "karma-firefox-launcher": "^2.1.2",
-    "karma-qunit": "^4.1.2",
-    "qunit": "^2.19.4"
+    "eslint": "^8.0.0",
+    "testem": "3.13.0",
+    "qunit": "^2.21.0"
   },
   "eslintIgnore": [
     "/lib"

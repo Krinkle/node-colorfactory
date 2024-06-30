@@ -11,6 +11,14 @@
 	<script src="../src/ColorFactory.js"></script>
 
 	<script src="../node_modules/qunit/qunit/qunit.js"></script>
+	<script>
+		var isTestem = /^\/(-?[0-9]+)\//.test(location.pathname);
+		if (isTestem) {
+			document.write('<script src="/testem.js"><\/script>');
+			Testem.hookIntoTestFramework();
+		}
+	</script>
+
 	<script src="testinit.js"></script>
 
 	<script src="ColorHelper.test.js"></script>
